@@ -8,20 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var redLight = LightView(color: .red)
+    @State var yellowLight = LightView(color: .yellow)
+    @State var greenLight = LightView(color: .green)
+    @State var buttonText = "Start"
+
+    @State private var currentLight = CurrentLight.red
+    private let lightIsOn: CGFloat = 1
+    private let lightIsOff: CGFloat = 0.3
+
     var body: some View {
         VStack {
-            LightView(color: .red)
-            LightView(color: .yellow)
-            LightView(color: .green)
+            redLight
+            yellowLight
+            greenLight
 
             Spacer()
 
             Button(action: changeLight) {
                 ZStack {
                     Capsule()
-                        .frame(width: 100, height: 45)
-                    Text("Start")
-                        .font(.largeTitle)
+                        .frame(width: 200, height: 55)
+                    Text(buttonText)
+                        .font(.title)
                         .foregroundColor(.white)
                 }
             }
@@ -32,12 +41,35 @@ struct ContentView: View {
         .padding()
     }
     private func changeLight() {
+        if buttonText == "Start"{
+            buttonText = "Next"
+        }
 
+        switch currentLight {
+        case .red:
+            greenLight.opacity = lightIsOff
+            redLight.opacity = lightIsOn
+            currentLight = .yellow
+        case .yellow:
+            redLight.opacity = lightIsOff
+            yellowLight.opacity = lightIsOn
+            currentLight = . green
+        case .green:
+            greenLight.opacity = lightIsOn
+            yellowLight.opacity = lightIsOff
+            currentLight = .red
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+extension ContentView {
+    private enum CurrentLight {
+        case red, yellow, green
     }
 }
