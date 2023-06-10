@@ -13,17 +13,26 @@ struct ContentView: View {
             LightView(color: .red)
             LightView(color: .yellow)
             LightView(color: .green)
+
             Spacer()
 
-            Button("Start") {
-
+            Button(action: changeLight) {
+                ZStack {
+                    Capsule()
+                        .frame(width: 100, height: 45)
+                    Text("Start")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                }
             }
-            .foregroundColor(.white)
-            .background(.blue)
-            .frame(width: 100, height: 50)
-
+            .foregroundColor(.blue)
+            .overlay(Capsule().stroke(Color.white, lineWidth: 5))
+            .shadow(radius: 10)
         }
         .padding()
+    }
+    private func changeLight() {
+
     }
 }
 
