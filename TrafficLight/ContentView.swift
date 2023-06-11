@@ -46,7 +46,7 @@ struct ContentView: View {
         if buttonText == "Start"{
             buttonText = "Next"
         }
-
+//вв
         switch currentLight {
         case .red:
             greenLight = lightIsOff
