@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var redLight = LightView(color: .red)
-    @State var yellowLight = LightView(color: .yellow)
-    @State var greenLight = LightView(color: .green)
-    @State var buttonText = "Start"
+    @State private var redLight = 0.3
+    @State private var yellowLight = 0.3
+    @State private var greenLight = 0.3
+
+    @State private var buttonText = "Start"
 
     @State private var currentLight = CurrentLight.red
-    private let lightIsOn: CGFloat = 1
-    private let lightIsOff: CGFloat = 0.3
 
     var body: some View {
-        VStack {
-            redLight
-            yellowLight
-            greenLight
+        VStack(spacing: 20) {
+            LightView(color: .red, opacity: redLight)
+            LightView(color: .yellow, opacity: yellowLight)
+            LightView(color: .green, opacity: greenLight)
 
             Spacer()
 
@@ -41,22 +40,25 @@ struct ContentView: View {
         .padding()
     }
     private func changeLight() {
+        let lightIsOn = 1.0
+        let lightIsOff = 0.3
+
         if buttonText == "Start"{
             buttonText = "Next"
         }
 
         switch currentLight {
         case .red:
-            greenLight.opacity = lightIsOff
-            redLight.opacity = lightIsOn
+            greenLight = lightIsOff
+            redLight = lightIsOn
             currentLight = .yellow
         case .yellow:
-            redLight.opacity = lightIsOff
-            yellowLight.opacity = lightIsOn
+            redLight = lightIsOff
+            yellowLight = lightIsOn
             currentLight = . green
         case .green:
-            greenLight.opacity = lightIsOn
-            yellowLight.opacity = lightIsOff
+            greenLight = lightIsOn
+            yellowLight = lightIsOff
             currentLight = .red
         }
     }

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LightView: View {
-    var color: Color
-    var opacity = 0.3
+    let color: Color
+    let opacity: Double
     
     var body: some View {
         Circle()
@@ -23,6 +23,6 @@ struct LightView: View {
 
 struct LightView_Previews: PreviewProvider {
     static var previews: some View {
-        LightView(color: .red)
+        LightView(color: .red, opacity: 0.3)
     }
 }
